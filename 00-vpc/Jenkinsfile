@@ -51,23 +51,23 @@ pipeline{
                         cd 00-vpc
                         terraform apply -auto-approve
                     """                       
-                }
-                
+                }              
             }
         }
     }
-    post{ 
-        always{ 
-            cleanWs()
-        }
-        success{ 
-            echo 'succeeded'
-        }
-        failure{ 
-            echo 'failed'
-        }
-        aborted{ 
-            echo 'aborted'
+        post{ 
+            always{ 
+                cleanWs()
+            }
+            success{ 
+                echo 'succeeded'
+            }
+            failure{ 
+                echo 'failed'
+            }
+            aborted{ 
+                echo 'aborted'
+            }
         }
     }
 }
