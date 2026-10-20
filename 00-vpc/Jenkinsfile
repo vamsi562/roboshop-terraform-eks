@@ -13,22 +13,24 @@ pipeline{
     stages{
         stage('Init'){
             steps{
-                script{
+                script{ withAWS(credentials: 'aws-auth', region: 'us-east-1'){
                     sh """
                         cd 00-vpc
                         terraform init
-                    """                       
+                    """
+                    }                      
                 }
                 
             }
         }
         stage('plan'){
             steps{
-                script{
+                script{ withAWS(credentials: 'aws-auth', region: 'us-east-1'){
                     sh """
                         cd 00-vpc
                         terraform plan
-                    """                       
+                    """
+                    }                      
                 }
                 
             }
@@ -42,15 +44,13 @@ pipeline{
                     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
             }
-            when{
-                expression { "${params.Deploy}" == "true" } // this stage will execute only if Deploy parameter is true
-            }
             steps{
-                script{
+                script{ withAWS(credentials: 'aws-auth', region: 'us-east-1'){
                     sh """
                         cd 00-vpc
                         terraform apply -auto-approve
-                    """                       
+                    """
+                    }                       
                 }              
             }
         }
