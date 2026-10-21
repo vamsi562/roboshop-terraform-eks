@@ -82,7 +82,7 @@ pipeline{
                 stage('70-acm'){
                     steps {
                         build job: '70-acm', 
-                        wait: true,
+                        wait: true, // 10-sg job wait until 70-acm job completed. only after it got completed 10-sg job will proceed with next steps. In this case it will trigger  frontend-alb only after acm got deployed
                         propagate: false 
                     }
                 }                
