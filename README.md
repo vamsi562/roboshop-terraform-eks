@@ -9,3 +9,7 @@
 
 
 aws eks update-kubeconfig --region us-east-1 --name roboshop-dev
+
+    ```
+        foreach ($i in "00-vpc","10-sg","20-bastion","30-sg-rules","40-ecr","70-acm","80-ingress-alb","90-eks") { if (Test-Path $i) { cd $i; git add .; if ($LASTEXITCODE -eq 0) { git commit -m "$i" }; if ($LASTEXITCODE -eq 0) { git push }; cd .. } else { Write-Warning "Directory $i does not exist." } }
+    ```
