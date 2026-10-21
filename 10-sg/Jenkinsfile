@@ -82,12 +82,19 @@ pipeline{
                 stage('70-acm'){
                     steps {
                         build job: '70-acm', 
-                        wait: false, 
+                        wait: true,
                         propagate: false 
                     }
                 }                
             }
             
+        }
+        stage('EKS'){
+            steps {
+                build job: '90-eks', 
+                wait: false,
+                propagate: false 
+            }
         }
     }
     post{ 
