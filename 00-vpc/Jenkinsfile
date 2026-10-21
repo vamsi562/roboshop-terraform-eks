@@ -56,6 +56,13 @@ pipeline{
                 }              
             }
         }
+        stage('Trigger sg') {
+            steps {
+                build job: '10-sg', // downstream job name
+                wait: false, // 00-vpc puts 10-sg into queue and continues to next step don't wait till 10-sg completed
+                propagate: false // false - as failure of 10-sg does not fails 00-vpc
+            }
+        }
     }
     post{ 
         always{ 
